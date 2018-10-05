@@ -3,13 +3,32 @@ from tkinter import *
 from calc import Calculos
 
 def calcular():
+    conta1=Calculos(1)
+
     tipo=option.get()
     tTaxa=option2.get()
-    P=ed1.get()
-    i=ed2.get()
-    n=ed3.get()
-    M=ed4.get()
-    print()
+    capital=ed1.get()
+    taxa=ed2.get()
+    if(tTaxa=="1" and taxa!=""):
+        taxa=float(taxa)
+    elif(tTaxa=="2" and taxa!=""):
+        taxa=float(taxa)/12
+    elif(taxa==""):
+        taxa=taxa
+    else:
+        result="Selecione um tipo de taxa"
+    periodo=ed3.get()
+    montante=ed4.get()
+    if(tipo=="1"):
+        ##composto
+        result = conta1.composto(capital, taxa, periodo, montante)
+    elif(tipo=="2"):
+        ##simples
+        result=conta1.simples(capital, taxa, periodo, montante)
+    else:
+        result="Selecione um tipo de juros"
+
+    lb5['text']=result
 
 
 
@@ -57,6 +76,9 @@ ed4.place(x=250, y=353)
 
 bt = Button (janela, text="Calcular", command=calcular)
 bt.place(x=250, y=400)
+
+lb5 = Label(janela, text="", font=("Verdana", 12))
+lb5.place(x=150, y=450)
 
 
 janela.mainloop()
